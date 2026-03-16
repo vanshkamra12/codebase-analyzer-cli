@@ -1,8 +1,24 @@
-# codebase-analyzer
+# 🚀 Codebase Analyzer CLI
 
-A CLI tool that parses Python repositories using AST and extracts functions, classes, imports, call graphs, and cyclomatic complexity. Built to run on real, large codebases.
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://python.org) [![Rich](https://img.shields.io/badge/Rich-Dashboard-brightgreen)](https://rich.readthedocs.io) [![AST](https://img.shields.io/badge/AST-Parsing-orange)](https://docs.python.org/3/library/ast.html)
+
+Production-grade code intelligence for Python repositories. Analyzed Django (2,894 files):
+
+| Metric | Result |
+|--------|--------|
+| Files | 2,894 |
+| Functions | **31,602** |
+| Classes | **10,893** |
+| Call Edges | **182,896** |
+| JSON Export | 15.4 MB |
+| Avg Complexity | 2.04 |
 
 ![Demo](demo.gif)
+
+**One-line install:**
+```bash
+pip install git+https://github.com/vanshkamra12/codebase-analyzer-cli.git && codebase-analyzer --help
+```
 
 ---
 
@@ -14,16 +30,6 @@ A CLI tool that parses Python repositories using AST and extracts functions, cla
 - Calculates McCabe cyclomatic complexity per function
 - Shows a summary in the terminal using a Rich table
 - Can export everything as JSON or a Markdown report
-
-## Results on Django (2,894 files)
-
-| Metric | Value |
-|--------|-------|
-| Functions | 31,602 |
-| Classes | 10,893 |
-| Call graph edges | 182,896 |
-| High-complexity functions (CC > 10) | 434 |
-| JSON export size | 15.4 MB |
 
 ---
 
