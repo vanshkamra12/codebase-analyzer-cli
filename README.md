@@ -58,8 +58,14 @@ codebase-analyzer ./myrepo --export analysis.json
 # generate a Markdown report
 codebase-analyzer ./myrepo --report report.md
 
-# both, no terminal output
+# skip directories like tests or migrations
+codebase-analyzer ./myrepo --exclude tests migrations
+
+# both outputs, no terminal summary
 codebase-analyzer ./myrepo --export analysis.json --report report.md --quiet
+
+# check version
+codebase-analyzer --version
 ```
 
 ---

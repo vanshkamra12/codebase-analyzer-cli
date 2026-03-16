@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "codebase-analyzer"
 version = "1.0.0"
 description = "CLI tool for analyzing Python codebases using AST"
-authors = [{name = "Vansh Kamra", email = "vansh@example.com"}]
+authors = [{name = "Vansh Kamra", email = "vanshkamra27@gmail.com"}]
 dependencies = ["rich>=13.0"]
 requires-python = ">=3.8"
 license = {text = "MIT"}

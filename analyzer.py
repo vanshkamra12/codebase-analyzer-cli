@@ -17,10 +17,13 @@ from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskPr
 
 console = Console()
 
+VERSION = "1.0.0"
+
 
 class CodebaseAnalyzer:
-    def __init__(self, repo_path: str):
+    def __init__(self, repo_path: str, exclude: List[str] = None):
         self.repo_path = Path(repo_path).resolve()
+        self.exclude = exclude or []
         self.functions: List[Dict[str, Any]] = []
         self.classes: List[Dict[str, Any]] = []
         self.imports: List[Dict[str, Any]] = []
@@ -34,7 +37,10 @@ class CodebaseAnalyzer:
             border_style="blue"
         ))
 
-        py_files = list(self.repo_path.rglob("*.py"))
+        py_files = [
+            f for f in self.repo_path.rglob("*.py")
+            if not any(part in self.exclude for part in f.parts)
+        ]
         console.print(f"\nFound [bold]{len(py_files)}[/bold] Python files\n")
 
         with Progress(
@@ -264,16 +270,21 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 examples:
-  analyzer .                        # analyze current directory
-  analyzer ./myrepo                 # analyze a specific repo
+  analyzer .                                   # analyze current directory
+  analyzer ./myrepo                            # analyze a specific repo
   analyzer ./myrepo --export out.json
   analyzer ./myrepo --report out.md
+  analyzer ./myrepo --exclude tests migrations # skip directories
+  analyzer --version
         """,
     )
     parser.add_argument("repo_path", nargs="?", default=".", help="path to repo (default: .)")
     parser.add_argument("--export", "-e", metavar="FILE", help="export results as JSON")
     parser.add_argument("--report", "-r", metavar="FILE", help="export results as Markdown")
+    parser.add_argument("--exclude", "-x", metavar="DIR", nargs="+", default=[],
+                        help="directory names to exclude (e.g. tests migrations)")
     parser.add_argument("--quiet", "-q", action="store_true", help="skip summary output")
+    parser.add_argument("--version", "-v", action="version", version=f"codebase-analyzer {VERSION}")
 
     args = parser.parse_args()
 
@@ -282,7 +293,7 @@ examples:
         console.print(f"[red]Error: path not found: {args.repo_path}[/red]")
         sys.exit(1)
 
-    analyzer = CodebaseAnalyzer(str(repo))
+    analyzer = CodebaseAnalyzer(str(repo), exclude=args.exclude)
     analyzer.analyze()
 
     if not args.quiet:

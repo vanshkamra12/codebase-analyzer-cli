@@ -5,6 +5,7 @@ setup(
     version="1.0.0",
     description="CLI tool for analyzing Python codebases using AST",
     author="Vansh Kamra",
+    author_email="vanshkamra27@gmail.com",
     py_modules=["analyzer"],
     install_requires=["rich>=13.0"],
     python_requires=">=3.8",
