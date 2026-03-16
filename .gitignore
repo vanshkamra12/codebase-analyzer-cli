@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Tool outputs (generated files, not source)
+*.json
+*.cast
+CODE_ANALYSIS.md
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codebase-analyzer"
+version = "1.0.0"
+description = "CLI tool for analyzing Python codebases using AST"
+authors = [{name = "Vansh Kamra", email = "vansh@example.com"}]
+dependencies = ["rich>=13.0"]
+requires-python = ">=3.8"
+license = {text = "MIT"}
+readme = "README.md"
+
+[project.scripts]
+codebase-analyzer = "analyzer:main"
