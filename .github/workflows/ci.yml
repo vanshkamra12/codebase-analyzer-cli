@@ -20,16 +20,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
       - name: Install
-        working-directory: codebase-analyzer-cli
         run: pip install -e . && pip install ruff pytest
       - name: Lint
-        working-directory: codebase-analyzer-cli
         run: ruff check . --select E,F,W --ignore E501
       - name: Tests
-        working-directory: codebase-analyzer-cli
         run: pytest tests/ -v --tb=short || echo "no tests yet"
       - name: Smoke test
-        working-directory: codebase-analyzer-cli
         run: |
           python analyzer.py . --output json | python -c "
           import sys, json
