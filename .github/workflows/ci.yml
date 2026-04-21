@@ -27,8 +27,10 @@ jobs:
         run: pytest tests/ -v --tb=short || echo "no tests yet"
       - name: Smoke test
         run: |
-          python analyzer.py . --output json | python -c "
-          import sys, json
-          data = json.load(sys.stdin)
+          python analyzer.py . --export /tmp/out.json --quiet
+          python -c "
+          import json
+          data = json.load(open('/tmp/out.json'))
           print(f'extracted {len(data.get(\"functions\", []))} functions')
+          assert len(data.get('functions', [])) > 0, 'expected at least one function'
           "
